@@ -1,0 +1,25 @@
+name: Projekt UWB - Automatyzacja
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie kodu
+        uses: actions/checkout@v3
+
+      - name: Automatyczne wykonanie SQL
+        run: |
+          mysql -h ${{ secrets.DB_HOST }} -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASS }} ${{ secrets.DB_NAME }} < structure.sql
+
+      - name: Wrzucenie plików PHP na serwer
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          source: "index.php,db_config.php"
+          target: "/var/www/html/student_89411"

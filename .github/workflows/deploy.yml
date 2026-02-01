@@ -19,5 +19,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            # Podmień 80XX na swój port z tabeli oraz vc na swój folder (nr albumu)
-            sudo /usr/local/bin/deploy_app.sh vc 8081
+         

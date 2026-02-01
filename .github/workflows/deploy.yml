@@ -1,4 +1,5 @@
-name: Projekt UWB - Automatyzacja
+name: Deploy PHP App
+
 on:
   push:
     branches: [ main ]
@@ -7,19 +8,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Pobranie kodu
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Automatyczne wykonanie SQL
-        run: |
-          mysql -h ${{ secrets.DB_HOST }} -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASS }} ${{ secrets.DB_NAME }} < structure.sql
-
-      - name: Wrzucenie plików PHP na serwer
-        uses: appleboy/scp-action@master
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: github-actions
           key: ${{ secrets.SSH_KEY }}
-          port: 22
-          source: "index.php,db_config.php"
-          target: "/var/www/html/student_89411"
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            # Podmień 80XX na swój port z tabeli oraz vc na swój folder (nr albumu)
+            sudo /usr/local/bin/deploy_app.sh vc 8081

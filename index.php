@@ -1,8 +1,8 @@
 <?php
 $host = "34.58.246.93";
-$user = "stud8911";
+$user = "stud";
 $pass = "Uwb123!!";
-$db = "studXXXXX"; // PODMIEŃ NA SWÓJ DB_NAME
+$db = "stud89411"; // PODMIEŃ NA SWÓJ DB_NAME
 
 $conn = new mysqli($host, $user, $pass, $db);
 

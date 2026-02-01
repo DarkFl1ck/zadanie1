@@ -1,6 +1,6 @@
 <?php
 $host = "34.58.246.93";
-$user = "stud";
+$user = "stud8911";
 $pass = "Uwb123!!";
 $db = "studXXXXX"; // PODMIEŃ NA SWÓJ DB_NAME
 

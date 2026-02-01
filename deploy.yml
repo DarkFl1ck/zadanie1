@@ -1,0 +1,22 @@
+name: Deploy PHP App
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          # Port z tabeli (np. 8002), jeśli łączysz się przez specyficzny port
+          port: 22 
+          source: "."
+          target: "/var/www/html/twoja_aplikacja"

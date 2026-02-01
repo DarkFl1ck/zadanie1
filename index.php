@@ -1,39 +1,25 @@
 <?php
-include 'db_config.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projekt 89411</title>
-    <style>
-        body { font-family: Arial; text-align: center; background: #f4f4f4; }
-        table { margin: 20px auto; border-collapse: collapse; background: white; }
-        th, td { padding: 10px; border: 1px solid #ddd; }
-        th { background: #333; color: white; }
-    </style>
-</head>
-<body>
-    <h1>Aplikacja Studenta 89411</h1>
-    <p>Serwer działa na porcie: <strong>8011</strong></p>
+$host = "34.58.246.93";
+$user = "stud";
+$pass = "Uwb123!!";
+$db = "studXXXXX"; // PODMIEŃ NA SWÓJ DB_NAME
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Student</th>
-            <th>Nr Albumu</th>
-            <th>Data automatycznego wpisu</th>
-        </tr>
-        <?php
-        $stmt = $pdo->query("SELECT * FROM dane_studenta");
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>
-                    <td>{$row['id']}</td>
-                    <td>{$row['imie_nazwisko']}</td>
-                    <td>{$row['nr_albumu']}</td>
-                    <td>{$row['data_wpisu']}</td>
-                  </tr>";
-        }
-        ?>
-    </table>
-</body>
-</html>
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Błąd połączenia: " . $conn->connect_error);
+}
+
+$sql = "SELECT tekst FROM dane";
+$result = $conn->query($sql);
+
+echo "<h1>Dane z bazy danych:</h1>";
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "Wpis: " . $row["tekst"] . "<br>";
+    }
+} else {
+    echo "Brak danych.";
+}
+$conn->close();
+?>

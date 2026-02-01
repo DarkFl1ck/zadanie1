@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS dane (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tekst VARCHAR(255) NOT NULL
+);
+INSERT INTO dane (tekst) VALUES ('Polaczenie z bazy album: TWOJ_NUMER');
